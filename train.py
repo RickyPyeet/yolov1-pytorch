@@ -58,7 +58,7 @@ def main(config_path: str | Path) -> None:
   device = 'cuda' if torch.cuda.is_available() else 'cpu'
 
   # Instantiate model with backbone weights
-  model = create_yolo_detection(backbone_weights_path = config['model']['backbone_weights_path'], 
+  model = create_yolo_detection(backbone_weights_path = config['model']['backbone_weights'], 
                                 seed = seed).to(device)
   
   # Compile model if required
@@ -82,7 +82,8 @@ def main(config_path: str | Path) -> None:
                                                         voc_train_transforms = get_voc_train_transforms(),
                                                         voc_val_transforms = get_voc_val_transforms(),
                                                         batch_size = config['data']['batch_size'],
-                                                        num_workers = config['data'].get('num_workers', os.cpu_count() or 1))
+                                                        num_workers = config['data'].get('num_workers', os.cpu_count() or 1),
+                                                        pin_memory = config['data'].get('pin_memory', False))
   # Scheduler
   scheduler = None
   if config['scheduler']['enabled']:

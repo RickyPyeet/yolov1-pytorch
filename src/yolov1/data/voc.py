@@ -4,7 +4,7 @@ import pandas as pd
 
 from torchvision import tv_tensors
 from torchvision.transforms import v2
-from torch.utils.data import Dataset
+from torch.utils.data import Dataset, DataLoader
 from PIL import Image
 
 from typing import List, Tuple
@@ -144,3 +144,37 @@ class VOCDataset(Dataset):
         target_label[i,j,(self.B*5)+transformed_labels[n]] = 1 # set correct class label to 1
 
     return target_img, target_label
+
+
+def create_dataloaders(training_csv,
+                      val_csv,
+                      voc_train_transforms,
+                      voc_val_transforms,
+                      batch_size,
+                      num_workers,
+                      pin_memory):
+  voc_train_dataset = VOCDataset(csv_file_path = training_csv,
+                                 transforms = voc_train_transforms,
+                                 S = 7,
+                                 B = 2,
+                                 C = 20)
+
+  voc_val_dataset = VOCDataset(csv_file_path = val_csv,
+                               transforms = voc_val_transforms,
+                               S = 7,
+                               B = 2,
+                               C = 20)
+  # Dataloader
+  yolo_train_dataloader = DataLoader(dataset = voc_train_dataset,
+                                    batch_size = batch_size,
+                                    shuffle = True,
+                                    num_workers = num_workers,
+                                    pin_memory = pin_memory)
+
+  yolo_val_dataloader = DataLoader(dataset = voc_val_dataset,
+                                  batch_size = batch_size,
+                                  shuffle = False,
+                                  num_workers = num_workers,
+                                  pin_memory = pin_memory)
+
+  return yolo_train_dataloader, yolo_val_dataloader

@@ -3,7 +3,7 @@ from tqdm.auto import tqdm
 from typing import Dict
 
 from src.yolov1.evaluation.map import compute_map
-from src.yolov1.evaluation.targets import decopde_gt, mask_gt
+from src.yolov1.utils.targets import decode_gt, mask_gt
 from src.yolov1.utils.checkpoint import save_checkpoint
 from src.yolov1.utils.nms import compute_nms
 
@@ -28,8 +28,8 @@ def training_step(model: torch.nn.Module,
     torch.nn.utils.clip_grad_norm_(model.parameters(), max_clip_norm)
     optimizer.step()
 
-    if batch % 50 == 0:
-      print(f"Looked at: {batch*len(X)}/{len(train_dataloader.dataset)} samples")
+    if (batch+1) % 2 == 0:
+      print(f"Looked at: {(batch+1)*len(X)}/{len(train_dataloader.dataset)} samples")
 
   train_loss /= len(train_dataloader)
 

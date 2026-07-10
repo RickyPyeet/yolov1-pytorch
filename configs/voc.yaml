@@ -14,7 +14,7 @@ model:
   B: 2
   C: 20
   backbone_weights: checkpoints/pretrained_backbone_tinyimagenet_200.pt
-  compile: false
+  compile: true
 
 loss:
   L_coord: 5.0

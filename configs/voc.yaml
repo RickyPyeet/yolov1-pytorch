@@ -1,0 +1,41 @@
+seed: 42
+
+data:
+  train_csv: data/voc_2007_2012_trainval.csv
+  val_csv: data/voc_2007_test.csv
+  image_dir: data/VOCdevkit
+  image_size: 448
+  batch_size: 128
+  num_workers: 2
+
+model:
+  S: 7
+  B: 2
+  C: 20
+  backbone_weights: checkpoints/pretrained_backbone_tinyimagenet_200.pt
+  compile: true
+
+loss:
+  L_coord: 5.0
+  L_noobj: 0.5
+
+optimizer:
+  name: adamw
+  lr: 0.00007
+  momentum: 0.9
+  weight_decay: 0.0001
+
+scheduler:
+  enabled: true
+  warmup_epochs: 8
+  min_lr: 0.000001
+
+training:
+  epochs: 150
+  max_clip_norm: 10.0
+  nms_conf_threshold: 0.01
+  nms_iou_threshold: 0.5
+
+checkpoint:
+  path: checkpoints
+  model_name: yolov1.pt

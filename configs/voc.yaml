@@ -7,13 +7,14 @@ data:
   image_size: 448
   batch_size: 128
   num_workers: 2
+  pin_memory: true
 
 model:
   S: 7
   B: 2
   C: 20
   backbone_weights: checkpoints/pretrained_backbone_tinyimagenet_200.pt
-  compile: true
+  compile: false
 
 loss:
   L_coord: 5.0

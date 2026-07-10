@@ -100,7 +100,6 @@ def train(model: torch.nn.Module,
           model_name: str = 'yolov1.pt',
           max_clip_norm: float = 10,
           device: torch.device | str = 'cpu',
-          use_compile: bool = False,
           logger = None) -> Dict:
 
   # Results dict
@@ -110,11 +109,6 @@ def train(model: torch.nn.Module,
              'epochs': []}
   # Move to device
   model.to(device)
-
-  if use_compile:
-    # Compile model and start training
-    torch.set_float32_matmul_precision('high')
-    model.compile()
 
   for epoch in tqdm(range(epochs)):
     print(f"Epoch: {epoch} | {epochs}\n-------------")

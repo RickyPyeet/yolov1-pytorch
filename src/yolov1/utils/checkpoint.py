@@ -1,13 +1,14 @@
 import datetime
-
+import torch
+from torch import nn
 from pathlib import Path
 
 def save_checkpoint(checkpoint_path: str,
                     model: nn.Module,
                     model_name:str,
                     optimizer: torch.optim.Optimizer,
-                    results_dict: Dict,
-                    scheduler: torch.optim.lr_scheduler.LRScheduler = None) -> None:
+                    results_dict: dict,
+                    scheduler: torch.optim.lr_scheduler.LRScheduler = None):
 
   checkpoint_path = Path(checkpoint_path)
 

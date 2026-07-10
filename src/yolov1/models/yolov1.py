@@ -46,3 +46,20 @@ class YOLOv1(nn.Module):
       return self.detect(self.backbone(x))
     else:
       return self.classifier(self.backbone(x))
+
+def create_yolo_detection(backbone_weights_path: str, seed: int = None):
+  """
+  Instantiate a YOLO model with detection set-up and loads up the backbone pretrained weights
+  args:
+    backbone_weights_path (str): location to backbone.state_dict()
+    seed (int | None): adds a seed to the model's creation
+  output:
+    model
+  """
+  if seed:
+    torch.manual_seed(seed)
+    torch.cuda.manual_seed(seed)
+
+  model = YOLOv1(S = 7, B = 2, C = 20, mode = "detection")
+  model.backbone.load_state_dict(state_dict = torch.load(backbone_weights_path, map_location = "cpu"))
+  return model

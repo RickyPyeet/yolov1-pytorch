@@ -8,12 +8,14 @@ import numpy as np
 import torch
 import yaml
 
+from torch import nn
+
 from src.yolov1.data.transforms import get_voc_train_transforms, get_voc_val_transforms
 from src.yolov1.data.voc import create_dataloaders
 from src.yolov1.models.yolov1 import create_yolo_detection
 from src.yolov1.training.loss import YOLOLoss
 from src.yolov1.training.trainer import train
-from src.yolov1.utils.scheduler import setup_scheduler
+from src.yolov1.training.lr_scheduler import setup_scheduler
 from src.yolov1.utils.seed import set_seed
 from src.yolov1.utils.config import load_config
 

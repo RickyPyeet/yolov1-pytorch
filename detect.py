@@ -45,6 +45,7 @@ def main():
     transform = inference_transform()
     
     # Make prediction and plot
+    model.eval()
     with torch.inference_mode():
         img = torchvision.transforms.ToTensor()(Image.open(args.img_path))
         transformed_img = transform(img).unsqueeze(0)

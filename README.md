@@ -63,12 +63,10 @@ A demo of the model can be used and visualized in the following Hugging Face Spa
 <table>
 <tr>
 <td align="center">
-<b>Training Loss</b><br>
 <img src="assets/detection_cat.webp" width="280">
 </td>
 
 <td align="center">
-<b>Validation Loss</b><br>
 <img src="assets/detection_boromir.webp" width="280">
 </td>
 </tr>
